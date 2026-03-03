@@ -1,0 +1,12 @@
+{
+  "name": "livestream",
+  "version": "1.0.0",
+  "description": "WebRTC P2P video call app",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "start": "pm2 start ecosystem.config.js"
+  }
+}
