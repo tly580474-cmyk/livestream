@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-03-04
+
+### Added
+- **多 STUN 服务器支持**
+  - Google 公共 STUN (5个): stun.l.google.com - stun4.l.google.com:19302
+  - Linphone: stun.linphone.org:3478
+  - PJSIP: stun.pjsip.org:3478
+  - FreeSWITCH: stun.freeswitch.org:3478
+  - Twilio: stun.twilio.com:3478
+
+### Added
+- **心跳保活机制 (P1)**
+  - 30秒间隔心跳包保持 NAT 映射
+  - 双向心跳 (主叫/被叫都发送)
+  - DataChannel 实现低开销 keepalive
+
+### Added
+- **IPv6 支持 (P3)**
+  - 自动检测本地 IPv6 连通性
+  - IPv6 可用时自动添加 IPv6 STUN 服务器
+
+### Added
+- **多端口打洞 (P4)**
+  - ICE candidate pool size 预分配 10 个端口
+  - 增加 NAT 映射命中概率
+
+### Improved
+- 网络穿透改进方案文档 (`docs/NETWORK_IMPROVEMENT.md`)
+  - 更新实现状态
+  - 添加 STUN 服务器配置说明
+
+---
+
 ## [1.2.0] - 2026-03-04
 
 ### Added
