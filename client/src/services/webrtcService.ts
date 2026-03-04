@@ -3,20 +3,22 @@ import { socketService } from './socketService';
 // ─── ICE 服务器配置 ───────────────────────────────────────────────────────────
 // STUN 服务器列表（多个服务器提高成功率）
 const STUN_SERVERS_BASE: RTCIceServer[] = [
+  // VoIPBuster 公共 STUN
+  { urls: 'stun:stun.voipbuster.com:3478' },
+  // VoIPStunt 公共 STUN
+  { urls: 'stun:stun.voipstunt.com:3478' },
+  // Linphone 公共 STUN
+  { urls: 'stun:stun.linphone.org:3478' },
   // Google 公共 STUN 服务器
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:stun2.l.google.com:19302' },
   { urls: 'stun:stun3.l.google.com:19302' },
   { urls: 'stun:stun4.l.google.com:19302' },
-  // Linphone 公共 STUN
-  { urls: 'stun:stun.linphone.org:3478' },
   // PJSIP 公共 STUN
   { urls: 'stun:stun.pjsip.org:3478' },
   // FreeSWITCH 公共 STUN
   { urls: 'stun:stun.freeswitch.org:3478' },
-  // VoIPBuster 公共 STUN
-  { urls: 'stun:stun.voipbuster.com:3478' },
 ];
 
 // P3: 额外的 IPv6 STUN 端点（Google 公共 STUN 同时支持 IPv4/IPv6）

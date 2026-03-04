@@ -8,7 +8,7 @@
 
 | 项目 | 状态 |
 |------|------|
-| STUN 服务器 | ✅ 9个服务器 (Google/Linphone/PJSIP/FreeSWITCH/VoIPBuster) |
+| STUN 服务器 | ✅ 10个服务器 (VoIPBuster/VoIPStunt/Linphone/Google/PJSIP/FreeSWITCH) |
 | TURN 服务器 | ❌ 未配置 |
 | IPv6 支持 | ✅ 已实现 (自动检测) |
 | 多端口打洞 | ✅ 已实现 (ICE candidate pool) |
@@ -129,20 +129,22 @@ Relay Candidate   - TURN 服务器中继地址 (最低优先级)
 
 ```javascript
 const STUN_SERVERS = [
+  // VoIPBuster 公共 STUN
+  { urls: 'stun:stun.voipbuster.com:3478' },
+  // VoIPStunt 公共 STUN
+  { urls: 'stun:stun.voipstunt.com:3478' },
+  // Linphone 公共 STUN
+  { urls: 'stun:stun.linphone.org:3478' },
   // Google 公共 STUN 服务器 (5个)
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:stun2.l.google.com:19302' },
   { urls: 'stun:stun3.l.google.com:19302' },
   { urls: 'stun:stun4.l.google.com:19302' },
-  // Linphone 公共 STUN
-  { urls: 'stun:stun.linphone.org:3478' },
   // PJSIP 公共 STUN
   { urls: 'stun:stun.pjsip.org:3478' },
   // FreeSWITCH 公共 STUN
   { urls: 'stun:stun.freeswitch.org:3478' },
-  // VoIPBuster 公共 STUN
-  { urls: 'stun:stun.voipbuster.com:3478' },
 ];
 ```
 
@@ -150,6 +152,7 @@ const STUN_SERVERS = [
 - Google: 195-214ms ✅
 - FreeSWITCH: 273ms ✅
 - VoIPBuster: 267ms ✅
+- VoIPStunt: 310ms ✅
 - Linphone: 368ms ✅
 - PJSIP: 430ms ✅
 

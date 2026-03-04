@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - **多 STUN 服务器支持**
-  - Google 公共 STUN (5个): stun.l.google.com - stun4.l.google.com:19302
+  - VoIPBuster: stun.voipbuster.com:3478
+  - VoIPStunt: stun.voipstunt.com:3478
   - Linphone: stun.linphone.org:3478
+  - Google 公共 STUN (5个): stun.l.google.com - stun4.l.google.com:19302
   - PJSIP: stun.pjsip.org:3478
   - FreeSWITCH: stun.freeswitch.org:3478
-  - VoIPBuster: stun.voipbuster.com:3478
 
 ### Added
 - **心跳保活机制 (P1)**
