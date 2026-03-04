@@ -15,8 +15,8 @@ const STUN_SERVERS_BASE: RTCIceServer[] = [
   { urls: 'stun:stun.pjsip.org:3478' },
   // FreeSWITCH 公共 STUN
   { urls: 'stun:stun.freeswitch.org:3478' },
-  // Twilio 公共 STUN
-  { urls: 'stun:stun.twilio.com:3478' },
+  // VoIPBuster 公共 STUN
+  { urls: 'stun:stun.voipbuster.com:3478' },
 ];
 
 // P3: 额外的 IPv6 STUN 端点（Google 公共 STUN 同时支持 IPv4/IPv6）
