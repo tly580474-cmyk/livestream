@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-03-04
+
+### Added
+- 网络穿透改进方案文档 (`docs/NETWORK_IMPROVEMENT.md`)
+  - 问题确认清单
+  - 改进方案详解
+  - 实施优先级建议
+  - 技术细节说明
+
+### Known Issues
+- **跨网络连接问题**: 不同 NAT 环境下的 P2P 连接失败
+  - 当前仅配置 Google 公共 STUN 服务器
+  - 未配置 TURN 中继服务器
+  - 未实现 IPv6 支持
+  - 未实现多端口打洞
+  - 未实现心跳保活
+
+### Improvement Roadmap
+| 优先级 | 改进项 | 难度 | 收益 |
+|--------|--------|------|------|
+| P0 | 响应式布局 | 低 | 高 |
+| P1 | 心跳保活 | 中 | 高 |
+| P2 | TURN 中继服务器 | 中 | 高 |
+| P3 | IPv6 支持 | 低 | 中 |
+| P4 | 多端口打洞 | 高 | 中 |
+
+---
+
 ## [1.1.0] - 2026-03-04
 
 ### Added
@@ -79,6 +107,8 @@ livestream/
 │   └── src/
 │       ├── index.js       # 服务入口
 │       └── services/      # 房间管理服务
+├── docs/                   # 项目文档
+│   └── NETWORK_IMPROVEMENT.md
 ├── deploy.sh              # 一键部署脚本
 ├── ecosystem.config.js    # PM2 配置
 └── nginx.conf             # Nginx 配置模板
@@ -104,18 +134,6 @@ pm2 restart livestream-server
 ```bash
 sudo ./deploy.sh
 ```
-
----
-
-## 已知问题 (待解决)
-
-1. **跨网络连接问题**
-   - 不同 NAT 环境下的 P2P 连接失败
-   - 解决方案规划中:
-     - IPv6 支持
-     - 多端口并行打洞
-     - NAT 保持心跳
-     - TURN 中继服务器
 
 ---
 
