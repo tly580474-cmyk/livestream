@@ -8,13 +8,13 @@
 
 | 项目 | 状态 |
 |------|------|
-| STUN 服务器 | ✅ 仅 Google 公共 STUN |
+| STUN 服务器 | ✅ 9个服务器 (Google/Linphone/PJSIP/FreeSWITCH/Twilio) |
 | TURN 服务器 | ❌ 未配置 |
-| IPv6 支持 | ❌ 未实现 |
-| 多端口打洞 | ❌ 未实现 |
-| 心跳保活 | ❌ 未实现 |
+| IPv6 支持 | ✅ 已实现 (自动检测) |
+| 多端口打洞 | ✅ 已实现 (ICE candidate pool) |
+| 心跳保活 | ✅ 已实现 (30秒间隔) |
 
-**结论**: 当前配置在对称型 NAT 或多层 NAT 环境下难以建立 P2P 连接。
+**结论**: 已实现多项网络穿透增强，大幅提高 P2P 连接成功率。
 
 ---
 
@@ -85,21 +85,21 @@ Client A ──STUN──► Internet
 
 ## 3. 实施优先级建议
 
-| 优先级 | 改进项 | 难度 | 收益 |
-|--------|--------|------|------|
-| P0 | 响应式布局 | 低 | 高 |
-| P1 | 心跳保活 | 中 | 高 |
-| P2 | TURN 中继服务器 | 中 | 高 |
-| P3 | IPv6 支持 | 低 | 中 |
-| P4 | 多端口打洞 | 高 | 中 |
+| 优先级 | 改进项 | 状态 | 难度 | 收益 |
+|--------|--------|------|------|------|
+| P0 | 响应式布局 | ✅ 已完成 | 低 | 高 |
+| P1 | 心跳保活 | ✅ 已完成 | 中 | 高 |
+| P2 | 多端口打洞 | ✅ 已完成 | 高 | 中 |
+| P3 | IPv6 支持 | ✅ 已完成 | 低 | 中 |
+| P4 | TURN 中继服务器 | ⏳ 待实现 | 中 | 高 |
 
 ### 优先级说明
 
-- **P0 (必须完成)**: 响应式布局已实现，优化移动端用户体验
-- **P1 (高优先级)**: 心跳保活可显著提高连接稳定性
-- **P2 (推荐)**: TURN 服务器作为 P2P 失败的备选方案
-- **P3 (可选)**: IPv6 在支持的网络环境下可绕过 NAT
-- **P4 (高级)**: 多端口打洞技术复杂度高，收益有限
+- **P0 (已完成)**: 响应式布局已实现，优化移动端用户体验
+- **P1 (已完成)**: 心跳保活已实现，30秒间隔保持 NAT 映射
+- **P2 (已完成)**: ICE candidate pool 已配置，增加打洞覆盖率
+- **P3 (已完成)**: IPv6 自动检测已实现
+- **P4 (待实现)**: TURN 服务器作为 P2P 失败的备选方案
 
 ---
 
@@ -125,16 +125,24 @@ Relay Candidate   - TURN 服务器中继地址 (最低优先级)
 
 ### 4.3 STUN 服务器推荐
 
+当前项目使用的 STUN 服务器：
+
 ```javascript
-// 公共 STUN 服务器
 const STUN_SERVERS = [
+  // Google 公共 STUN 服务器
   { urls: 'stun:stun.l.google.com:19302' },
   { urls: 'stun:stun1.l.google.com:19302' },
   { urls: 'stun:stun2.l.google.com:19302' },
   { urls: 'stun:stun3.l.google.com:19302' },
   { urls: 'stun:stun4.l.google.com:19302' },
-  // IPv6 STUN 服务器
-  { urls: 'stun:[2001:4860:4860::8888]:3478' },
+  // Linphone 公共 STUN
+  { urls: 'stun:stun.linphone.org:3478' },
+  // PJSIP 公共 STUN
+  { urls: 'stun:stun.pjsip.org:3478' },
+  // FreeSWITCH 公共 STUN
+  { urls: 'stun:stun.freeswitch.org:3478' },
+  // Twilio 公共 STUN
+  { urls: 'stun:stun.twilio.com:3478' },
 ];
 ```
 
@@ -157,9 +165,8 @@ const ICE_SERVERS = {
 
 ## 5. 后续计划
 
-1. **短期目标**: 完成心跳保活机制
-2. **中期目标**: 部署 TURN 服务器
-3. **长期目标**: 实现 IPv6 支持和多端口打洞
+1. **已完成**: 心跳保活机制、IPv6 支持、多端口打洞
+2. **下一步**: 部署 TURN 服务器作为备份
 
 ---
 
