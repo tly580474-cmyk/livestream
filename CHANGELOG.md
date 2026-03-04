@@ -1,0 +1,124 @@
+# 更新日志 (Changelog)
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [1.1.0] - 2026-03-04
+
+### Added
+- 一键部署脚本 (`deploy.sh`) - 支持 Ubuntu 20.04/22.04/24.04
+  - 自动安装 Node.js 20.x LTS
+  - 自动配置 Nginx (HTTP/HTTPS)
+  - 自动申请 Let's Encrypt SSL 证书
+  - 自动配置防火墙 (UFW)
+  - 支持代码自动更新部署
+
+### Improved
+- 视频通话页面响应式布局优化
+  - 移动端适配 (320px - 2560px)
+  - 动态视口高度 `min-h-[100dvh]`
+  - 本地视频小窗尺寸响应式变化 (80px → 144px)
+  - 控制按钮尺寸自适应 (40px → 48px)
+  - 触摸反馈优化 (`active:scale-95`)
+  - iPhone 刘海屏安全区域适配
+  - 禁用页面回弹滚动
+  - 远程视频改为 `object-contain` 保持比例
+
+### Fixed
+- 修复前端构建问题 (Node.js 版本兼容)
+- 修复 Git 权限问题
+
+---
+
+## [1.0.0] - 2026-03-03
+
+### Added
+- 初始版本发布
+- WebRTC P2P 视频通话功能
+- 房间创建与加入系统
+- Socket.io 信令服务器
+- 音视频开关控制
+- 挂断功能
+- 本地预览 (PiP 模式)
+- 等待房间界面
+- Nginx 配置模板
+- PM2 进程管理配置
+
+### Features
+- 使用 STUN 服务器进行 NAT 穿透
+- 房间状态实时显示
+- 连接状态监听与显示
+- 媒体设备权限管理
+
+---
+
+## 技术栈
+
+- **前端**: React 19 + TypeScript + Vite + TailwindCSS
+- **后端**: Node.js + Express + Socket.io
+- **部署**: PM2 + Nginx
+- **协议**: WebRTC + STUN
+
+---
+
+## 项目结构
+
+```
+livestream/
+├── client/                 # 前端 React 应用
+│   ├── src/
+│   │   ├── components/    # React 组件
+│   │   ├── hooks/         # 自定义 Hooks
+│   │   └── services/      # WebRTC/Socket 服务
+│   └── dist/              # 构建输出
+├── server/                 # 后端 Node.js 服务
+│   └── src/
+│       ├── index.js       # 服务入口
+│       └── services/      # 房间管理服务
+├── deploy.sh              # 一键部署脚本
+├── ecosystem.config.js    # PM2 配置
+└── nginx.conf             # Nginx 配置模板
+```
+
+---
+
+## 如何更新
+
+```bash
+# 克隆最新代码
+git pull
+
+# 重新构建前端
+cd client && npm run build
+
+# 重启后端服务
+pm2 restart livestream-server
+```
+
+或者使用一键部署脚本自动更新：
+
+```bash
+sudo ./deploy.sh
+```
+
+---
+
+## 已知问题 (待解决)
+
+1. **跨网络连接问题**
+   - 不同 NAT 环境下的 P2P 连接失败
+   - 解决方案规划中:
+     - IPv6 支持
+     - 多端口并行打洞
+     - NAT 保持心跳
+     - TURN 中继服务器
+
+---
+
+## License
+
+MIT
