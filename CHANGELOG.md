@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Linphone: stun.linphone.org:3478
   - PJSIP: stun.pjsip.org:3478
   - FreeSWITCH: stun.freeswitch.org:3478
-  - Twilio: stun.twilio.com:3478
+  - VoIPBuster: stun.voipbuster.com:3478
 
 ### Added
 - **心跳保活机制 (P1)**
@@ -32,6 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **多端口打洞 (P4)**
   - ICE candidate pool size 预分配 10 个端口
   - 增加 NAT 映射命中概率
+
+### Fixed
+- 移除不可用的 Twilio STUN 服务器 (测试超时)
 
 ### Improved
 - 网络穿透改进方案文档 (`docs/NETWORK_IMPROVEMENT.md`)
