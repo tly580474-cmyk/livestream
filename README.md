@@ -1,5 +1,7 @@
 # 视频通话 - WebRTC P2P
 
+> ⚠️ **推荐环境**: 最好在**局域网**或者能够访问**谷歌**的网络环境下使用
+
 基于 WebRTC 的网页版视频对话软件，实现浏览器间 P2P 视频通话，服务器仅转发信令。
 
 ## 技术栈
@@ -85,9 +87,9 @@ sudo apt install -y certbot python3-certbot-nginx
 sudo certbot --nginx -d your-domain.com
 
 # 6. 启动后端服务
-pm2 start ecosystem.config.js
-pm2 save
-pm2 startup
+npm2 start ecosystem.config.js
+npm2 save
+npm2 startup
 ```
 
 ## 项目结构
