@@ -35,15 +35,15 @@ const VideoCall: React.FC<VideoCallProps> = ({
   const { text, color } = stateLabel[connectionState] ?? stateLabel.idle;
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col">
+    <div className="min-h-screen min-h-[100dvh] bg-slate-950 flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 bg-slate-900/80 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 bg-slate-900/80 border-b border-slate-800">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
-          <span className="text-white font-semibold text-sm">视频通话</span>
-          <span className="text-slate-500 text-xs ml-1">#{roomId}</span>
+          <span className="text-white font-semibold text-xs sm:text-sm">视频通话</span>
+          <span className="text-slate-500 text-[10px] sm:text-xs ml-1">#{roomId}</span>
         </div>
         <div className="flex items-center gap-1.5">
           {connectionState === 'connected' && (
@@ -52,34 +52,34 @@ const VideoCall: React.FC<VideoCallProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
           )}
-          <span className={`text-xs font-medium ${color}`}>{text}</span>
+          <span className={`text-[10px] sm:text-xs font-medium ${color}`}>{text}</span>
         </div>
       </div>
 
       {/* Video area */}
-      <div className="flex-1 relative bg-slate-950">
+      <div className="flex-1 relative bg-slate-950 overflow-hidden">
         {/* Remote video (main) */}
         <video
           ref={remoteVideoRef}
           autoPlay
           playsInline
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain bg-slate-900"
         />
 
         {/* Remote placeholder */}
         {connectionState !== 'connected' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div className="w-20 h-20 rounded-full bg-slate-700 flex items-center justify-center">
-              <svg className="w-10 h-10 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 sm:gap-3">
+            <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-slate-700 flex items-center justify-center">
+              <svg className="w-7 h-7 sm:w-10 sm:h-10 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
-            <p className={`text-sm font-medium ${color}`}>{text}</p>
+            <p className={`text-xs sm:text-sm font-medium ${color}`}>{text}</p>
           </div>
         )}
 
         {/* Local video (PiP) */}
-        <div className="absolute bottom-4 right-4 w-36 aspect-video bg-slate-800 rounded-xl overflow-hidden shadow-lg border border-slate-700/60">
+        <div className="absolute bottom-16 sm:bottom-20 right-2 sm:right-4 w-20 sm:w-28 md:w-32 lg:w-36 aspect-video bg-slate-800 rounded-lg sm:rounded-xl overflow-hidden shadow-lg border border-slate-700/60">
           <video
             ref={localVideoRef}
             autoPlay
@@ -89,22 +89,22 @@ const VideoCall: React.FC<VideoCallProps> = ({
           />
           {!videoEnabled && (
             <div className="absolute inset-0 bg-slate-800 flex items-center justify-center">
-              <svg className="w-6 h-6 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 <line x1="2" y1="2" x2="22" y2="22" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </div>
           )}
-          <div className="absolute bottom-1 left-1 text-[10px] text-white/60 bg-black/40 rounded px-1">我</div>
+          <div className="absolute bottom-0.5 sm:bottom-1 left-1 text-[8px] sm:text-[10px] text-white/60 bg-black/40 rounded px-1">我</div>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="flex items-center justify-center gap-4 py-5 bg-slate-900/80 border-t border-slate-800">
+      <div className="flex items-center justify-center gap-3 sm:gap-4 py-3 sm:py-5 px-2 bg-slate-900/80 border-t border-slate-800 safe-area-bottom">
         {/* Mic toggle */}
         <button
           onClick={onToggleAudio}
-          className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all active:scale-95 ${
             audioEnabled
               ? 'bg-slate-700 hover:bg-slate-600 text-white'
               : 'bg-red-600 hover:bg-red-500 text-white'
@@ -112,11 +112,11 @@ const VideoCall: React.FC<VideoCallProps> = ({
           title={audioEnabled ? '关闭麦克风' : '开启麦克风'}
         >
           {audioEnabled ? (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
             </svg>
@@ -126,10 +126,10 @@ const VideoCall: React.FC<VideoCallProps> = ({
         {/* Hang up */}
         <button
           onClick={onHangUp}
-          className="w-14 h-14 rounded-full bg-red-600 hover:bg-red-500 active:bg-red-700 flex items-center justify-center shadow-lg shadow-red-600/30 transition-all"
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-red-600 hover:bg-red-500 active:bg-red-700 active:scale-95 flex items-center justify-center shadow-lg shadow-red-600/30 transition-all"
           title="挂断"
         >
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02L6.6 10.8z" />
           </svg>
         </button>
@@ -137,7 +137,7 @@ const VideoCall: React.FC<VideoCallProps> = ({
         {/* Camera toggle */}
         <button
           onClick={onToggleVideo}
-          className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+          className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all active:scale-95 ${
             videoEnabled
               ? 'bg-slate-700 hover:bg-slate-600 text-white'
               : 'bg-red-600 hover:bg-red-500 text-white'
@@ -145,11 +145,11 @@ const VideoCall: React.FC<VideoCallProps> = ({
           title={videoEnabled ? '关闭摄像头' : '开启摄像头'}
         >
           {videoEnabled ? (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
           ) : (
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               <line x1="2" y1="2" x2="22" y2="22" strokeWidth={2} strokeLinecap="round" />
